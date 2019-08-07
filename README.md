@@ -1,7 +1,7 @@
 # pyransac
 
 This repository contains an Python wrapper of RANSAC for homography and fundamental matrix estimation
-from sparse correspondences. It implements [LO-RANSAC](ftp://cmp.felk.cvut.cz/pub/cmp/articles/matas/chum-dagm03.pdf) and [DEGENSAC](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.466.2719&rep=rep1&type=pdf).
+from sparse correspondences. It implements [LO-RANSAC](https://link.springer.com/chapter/10.1007/978-3-540-45243-0_31) and [DEGENSAC](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.466.2719&rep=rep1&type=pdf).
 
 # Installation
 
