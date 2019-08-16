@@ -24,6 +24,24 @@
     __typeof__ (b) _b = (b); \
     _a > _b ? _a : _b; })
 //#define FULL_SYMM
+
+inline int HcloseToSingular(const double *h){
+    double v, tol;
+
+    int i;
+    v = det3(h);
+    tol = h[8];
+    if (tol == 0) {
+        for (i = 0; i < 9; ++i) { /* Frobenius norm */
+            tol += h[i]*h[i];
+        }
+        tol = sqrt(tol);
+        tol *= 0.001; /* typical ratio H(3,3)/||H||_F */
+    }
+    tol = tol*tol*tol;
+    return (fabs(v/tol) < 1e-2) ; /* reject H's close to singular */
+}
+
 Score exp_iterH(double *u, int len, int *inliers, double th, double ths,
                 int steps, double *H, double *Z, double **errs, double *buffer,
                 int iterID, unsigned inlLimit, double *resids)
@@ -445,23 +463,6 @@ Score exp_inHranicustom (double *u, int len, int *inliers, int ninl,
 
     free(intbuff);
     return maxS;
-}
-
-inline int HcloseToSingular(const double *h){
-    double v, tol;
-
-    int i;
-    v = det3(h);
-    tol = h[8];
-    if (tol == 0) {
-        for (i = 0; i < 9; ++i) { /* Frobenius norm */
-            tol += h[i]*h[i];
-        }
-        tol = sqrt(tol);
-        tol *= 0.001; /* typical ratio H(3,3)/||H||_F */
-    }
-    tol = tol*tol*tol;
-    return (fabs(v/tol) < 1e-2) ; /* reject H's close to singular */
 }
 
 
