@@ -19,7 +19,7 @@ error_type_dict_homography = {"sampson": 0,
                    "symm_sum": 4}
 
 error_type_dict_fundamental = {"sampson": 0,
-                   "symm_epopilar": 1}
+                   "symm_epipolar": 1}
 
 def convert_cv2_kpts_to_xyA(kps):
     """
@@ -129,15 +129,15 @@ def findFundamentalMatrix(pts1_,
                                                                             error_type))
     laf_consistensy_coef = max(0, laf_consistensy_coef)
     F, mask = pyransac.findFundamentalMatrix_(pts1,
-                             pts2,
-                             px_th,
-                             conf,
-                             max_iters,
-                             error_type_int,
-                             symmetric_error_check,
-                             laf_consistensy_coef);
+                         pts2,
+                         px_th,
+                         conf,
+                         max_iters,
+                         error_type_int,
+                         symmetric_error_check,
+                         laf_consistensy_coef);
     if np.abs(F).sum() == 0:
         # If we haven`t found any good model, output zeros
-        mask = [False]*len(mask)
+        mask = [False]*n
     return F, mask
 

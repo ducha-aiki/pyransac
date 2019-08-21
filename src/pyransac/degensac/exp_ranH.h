@@ -9,6 +9,9 @@
 /*empirically 7*mss...*/
 #define D3_H_MAX 28
 
+int HcloseToSingular(const double *h);
+
+
 Score exp_iterH(double *u, int len, int *inliers, double th, double ths,
                 int steps, double *H, double *Z, double **errs, double *buffer,
                 int iterID, unsigned inlLimit, double *resids);

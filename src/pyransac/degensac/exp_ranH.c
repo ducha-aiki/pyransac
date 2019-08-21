@@ -25,7 +25,7 @@
     _a > _b ? _a : _b; })
 //#define FULL_SYMM
 
-inline int HcloseToSingular(const double *h){
+int HcloseToSingular(const double *h){
     double v, tol;
 
     int i;

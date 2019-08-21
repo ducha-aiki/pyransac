@@ -19,7 +19,7 @@ extern void dgesvd_( char* jobu, char* jobvt, lapack_int* m, lapack_int* n, doub
 
 /* Standard (=FULL) SVD */
 int lap_SVD (double *d, double *a, double *u, lapack_int m, double *vt, lapack_int n) {
-  lapack_int lda = m, ldu = m, ldvt = n, info, lwork;
+  lapack_int lda = m, ldu = m, ldvt = n, info = 1, lwork;
   double wkopt;
   double *work;
   /* Query and allocate the optimal workspace */
@@ -65,7 +65,7 @@ extern void dsyev_( char* jobz, char* uplo, lapack_int* n, double* a, lapack_int
 
 /* Eigen-decomposition */
 int lap_eig(double *a, double *ev, lapack_int n) {
-  lapack_int lda = n, info, lwork;
+  lapack_int lda = n, info = 1, lwork;
   double wkopt;
   double *work;
   /* Query and allocate the optimal workspace */

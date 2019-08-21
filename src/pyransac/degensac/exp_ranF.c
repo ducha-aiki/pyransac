@@ -742,19 +742,19 @@ Score exp_iterFcustom(double *u, int len, int *inliers, int * inl2, double th, d
     return maxS;
 }
 
-
 Score exp_inFranicustom (double *u, int len, int *inliers, int ninl,
                          double th, double **errs, double *buffer,
                          double *F, int * samidx, int * iterID, unsigned inlLimit, double *resids,exFDsPtr EXFDS1,FDsPtr FDS1) {
     unsigned ssiz, i;
     Score S = {0, 0}, maxS = {0, 0};
-
+    int jj;
     double *d, f[9];
     int *sample;
-    int *intbuff, * intbuff2;
+    int *intbuff, * intbuff2, *intbuff_best;
 
     intbuff = (int *) malloc(sizeof(int) * len);
     intbuff2 = (int *) malloc(sizeof(int) * len);
+    intbuff_best = (int *) malloc(sizeof(int) * len);
 
     if (ninl < 16) {
         /*//printf("Prematurely escaped LO, not enough inliers (<16)!\n");*/
@@ -786,15 +786,22 @@ Score exp_inFranicustom (double *u, int len, int *inliers, int ninl,
             errs[2] = errs[0];
             errs[0] = d;
             memcpy(F,f,9*sizeof(double));
+            for ( jj =0; jj <maxS.I ; jj++) {
+                intbuff_best[jj] = intbuff[jj];
+            }
         }
     }
 
     d = errs[2];
     errs[2] = errs[0];
     errs[0] = d;
-
+    for ( jj =0; jj <maxS.I ; jj++) {
+        inliers[jj] = intbuff_best[jj];
+    }
     free(intbuff);
     free(intbuff2);
+    free(intbuff_best);
+
     return maxS;
 }
 
