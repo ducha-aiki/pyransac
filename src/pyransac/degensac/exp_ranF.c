@@ -1245,7 +1245,7 @@ int exp_ransacFcustomLAF(double *u, double *u_1, double *u_2,int len, double th,
                          double conf, int max_sam,
                          double *F, unsigned char * inl,
                          int * data_out, int do_lo, unsigned inlLimit, double **resids, double* H_best,
-                         int* Ih, exFDsPtr EXFDS1, FDsPtr FDS1, FDsidxPtr FDS1idx, double SymCheck_th) {
+                         int* Ih, exFDsPtr EXFDS1, FDsPtr FDS1, FDsidxPtr FDS1idx, double SymCheck_th, int enable_degen_check) {
     unsigned seed;
 
     int *pool, no_sam, new_sam;  double *Z, *buffer, u7[6*7], H[3*3], FBest[3*3];
@@ -1425,7 +1425,7 @@ int exp_ransacFcustomLAF(double *u, double *u_1, double *u_2,int len, double th,
             if(scoreLess(maxSs, S)) {
                 maxSs = S;
                 ////printf("__PROFILE: BEFORE checksample: %d\n", getticks()/1000);
-                if (checksample(f, u7, 3*th, H)) {
+                if (enable_degen_check && checksample(f, u7, 3*th, H)) {
                     ////printf("__PROFILE: AFTER  checksample: %d\n", getticks()/1000);
                     dHDs(H, u, len, HDs, bufferP, buffer);
                     I = 0;
@@ -1580,7 +1580,7 @@ int exp_ransacFcustomLAF(double *u, double *u_1, double *u_2,int len, double th,
     if (do_lo && (!iter_cnt && !degen_cnt) && non_degen_samples_count) { //TODO maybe not a good idea to supress LO after degen...? full vs. full+
         ////printf("Running ALO LO\n");
         loadSample(u, samidxBest, 7, 6, u7);
-        if (checksample(FBest, u7, 3*th, H)) { //TODO is this necessary? NO, if running full+ version (degen_cnt > 0 if found deg. sample with big consensus)
+        if (enable_degen_check && checksample(FBest, u7, 3*th, H)) { //TODO is this necessary? NO, if running full+ version (degen_cnt > 0 if found deg. sample with big consensus)
             ////printf("__PROFILE: AFTER  checksample: %d\n", getticks()/1000);
             dHDs(H, u, len, HDs, bufferP, buffer);
             I = 0;
