@@ -14,15 +14,6 @@ if (OPENMP_FOUND)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
 endif (OPENMP_FOUND)
 
-message("Looking for OpenCV")
-FIND_PACKAGE(OpenCV)
-if (OpenCV_FOUND)
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenCV_CXX_FLAGS}")
-  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenCV_CXX_FLAGS}")
-  include_directories(${OpenCV_INDLUDE_DIRS})
-else(OpenCV_FOUND)
-  message("OpenCV not found!")
-endif (OpenCV_FOUND)
 
 enable_language (Fortran)
 FIND_PACKAGE(LAPACK REQUIRED)
@@ -64,4 +55,4 @@ set(degensac_srcs
 
 
 pybind11_add_module(pyransac "src/pyransac/bindings.cpp" ${degensac_srcs})
-target_link_libraries(pyransac PRIVATE  ${OpenCV_LIBS} ${LAPACK_LIBRARIES} matutls)
+target_link_libraries(pyransac PRIVATE ${LAPACK_LIBRARIES} matutls)

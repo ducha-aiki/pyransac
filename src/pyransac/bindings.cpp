@@ -2,7 +2,6 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl_bind.h>
 #include <pybind11/numpy.h>
-#include <opencv2/core/core.hpp>
 #include "degensac/exp_ranF.h"
 #include "degensac/exp_ranH.h"
 
@@ -222,14 +221,7 @@ py::tuple findHomography_(py::array_t<double>  x1y1_,
                          HDS1,HDSi1,HDSidx1,
                          SymCheck_th);
 
-    // Convert and store output
 
-
-    // Because code uses other convention
-    cv::Mat Hlor(3,3,CV_64F, H);
-    cv::Mat Hinv(3,3,CV_64F);
-    cv::invert(Hlor.t(),Hinv, cv::DECOMP_LU);
-    double* HinvPtr = (double*)Hinv.data;
 
     //Model
     py::array_t<double> H_out = py::array_t<double>({3,3});
@@ -237,7 +229,7 @@ py::tuple findHomography_(py::array_t<double>  x1y1_,
     double *ptr_H_out = (double *)buf_H_out.ptr;
 
     for (size_t i=0; i<9; i++)
-        ptr_H_out[i]=HinvPtr[i];
+        ptr_H_out[i]=H[i];
 
     //Inliers
     py::array_t<bool> inliers_out = py::array_t<bool>(NUM_TENTS);
