@@ -73,10 +73,10 @@ def convert_and_check(kps1):
 
 def findHomography(pts1_,
                    pts2_, 
-                   px_th = 4.0,
-                   conf = 0.99,
-                   max_iters = 10000,
-                   laf_consistensy_coef = 3.0,
+                   px_th = 1.0,
+                   conf = 0.999,
+                   max_iters = 50000,
+                   laf_consistensy_coef = -1.0,
                    error_type = "sampson",
                    symmetric_error_check = True):
     pts1 = convert_and_check(pts1_)
@@ -109,10 +109,10 @@ def findHomography(pts1_,
 
 def findFundamentalMatrix(pts1_,
                    pts2_,
-                   px_th = 4.0,
-                   conf = 0.99,
-                   max_iters = 10000,
-                   laf_consistensy_coef = 3.0,
+                   px_th = 0.5,
+                   conf = 0.9999,
+                   max_iters = 100000,
+                   laf_consistensy_coef = -1.0,
                    error_type = "sampson",
                    symmetric_error_check = True,
                    enable_degeneracy_check = True):
