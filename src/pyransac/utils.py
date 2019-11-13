@@ -101,10 +101,11 @@ def findHomography(pts1_,
                              error_type_int,
                              symmetric_error_check,
                              laf_consistensy_coef);
-    H_out = np.linalg.inv(H.T) 
-    if np.abs(H_out).sum() == 0:
+    if np.abs(H).sum() == 0:
         # If we haven`t found any good model, output zeros
         mask = [False]*len(mask)
+        return H, mask
+    H_out = np.linalg.inv(H.T) 
     return H_out, mask
 
 def findFundamentalMatrix(pts1_,
