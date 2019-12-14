@@ -35,6 +35,7 @@ And this [notebook](examples/how-to-use-detailed.ipynb) with detailed explanatio
 
 - Python 3
 - CMake 2.8.12 or higher
+- LAPACK, 
 - A modern compiler with C++11 support
 
 
