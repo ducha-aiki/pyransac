@@ -91,6 +91,8 @@ class CMakeBuild(build_ext):
         copyfile(src_file, dest_file)
         copymode(src_file, dest_file)
 
+requirements = [ 'cmake>=2.8.12', ]
+
 setup(
     name='pyransac',
     version='0.1',
@@ -104,4 +106,5 @@ setup(
     cmdclass=dict(build_ext=CMakeBuild),
     #test_suite='tests',
     zip_safe=False,
+    install_requires=requirements,
 )
