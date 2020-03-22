@@ -17,6 +17,52 @@ or
 pip3 install .
 ```
 
+# Building hints from Tomasz Malisiewicz
+
+1. Compiling pyransac without a system-wide install.
+
+```bash
+python3 ./setup.py build
+```
+
+2. Compiling on Mac OS X computer
+Use GCC instead of Clang. The most recent version on my machine (installed via brew) is gcc-8. Try this:
+
+```bash
+CC=gcc-8 python3 ./setup.py build
+```
+
+3. Compiling on Ubuntu 18.04
+You need LAPACK and a few other libraries and I always forget those specific package names. Take a look at my pyransac Dockerfile to see the exact packages you need to apt install on an Ubuntu 18.04 system (https://github.com/quantombone/pyransac-dockerfile/blob/master/Dockerfile)
+FROM ubuntu:18.04
+
+## update system
+```bash
+RUN apt-get clean
+RUN apt-get update
+RUN apt-get install -qy \
+    git python3 python3-setuptools python3-dev
+RUN apt-get install -y cmake libblas-dev liblapack-dev gfortran
+RUN apt-get install -y g++ gcc
+```
+
+## download and build pyransac
+```
+RUN git clone https://github.com/ducha-aiki/pyransac.git
+WORKDIR pyransac
+RUN python3 ./setup.py build
+```
+
+## copy built assets into target directory (which will be a -v volume)
+```docker
+CMD cp -R /pyransac/build/lib.linux-x86_64-3.6/pyransac /target_directory
+```
+
+# dockerfile
+
+https://github.com/quantombone/pyransac-dockerfile
+
+
 # Example of usage
 
 ```python
