@@ -46,7 +46,10 @@ CC=gcc-8 python3 ./setup.py build
 
 3. Compiling on Ubuntu 18.04
 You need LAPACK and a few other libraries and I always forget those specific package names. Take a look at my pyransac Dockerfile to see the exact packages you need to apt install on an Ubuntu 18.04 system (https://github.com/quantombone/pyransac-dockerfile/blob/master/Dockerfile)
+
+```bash
 FROM ubuntu:18.04
+```
 
 ## update system
 ```bash
