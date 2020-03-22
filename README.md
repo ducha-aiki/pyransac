@@ -3,6 +3,18 @@
 This repository contains an Python wrapper of RANSAC for homography and fundamental matrix estimation
 from sparse correspondences. It implements [LO-RANSAC](https://link.springer.com/chapter/10.1007/978-3-540-45243-0_31) and [DEGENSAC](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.466.2719&rep=rep1&type=pdf).
 
+
+# Performance
+
+Vanilla pyransac implementation is marginally better than OpenCV one and with degeneracy-check enabled (DEGENSAC) it is the state of the art,
+according to the recent study Yin et.al."[Image Matching across Wide Baselines: From Paper to Practice](https://arxiv.org/abs/2003.01587.pdf)", 2020.
+
+![IMW-benchmark](img/ransacs.png)
+
+
+![IMW-Challenge](img/ransacs2.png)
+
+
 # Installation
 
 To build and install `pyransac`, clone or download this repository and then, from within the repository, run:
