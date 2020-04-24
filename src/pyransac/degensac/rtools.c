@@ -1,3 +1,4 @@
+#include <float.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -218,7 +219,7 @@ int nsamples(int ninl, int ptNum, int samsiz, double conf)
   else
     {
       b = log(1-conf) / log(a);
-      if (b > MAX_SAMPLES)
+      if ((b != b) || (b < -FLT_MAX || b > FLT_MAX) || (b > MAX_SAMPLES))
         return MAX_SAMPLES; else
         return (int) ceil(b);
     }
